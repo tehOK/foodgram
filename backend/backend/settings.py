@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'rest_framework',  # Django REST Framework for building APIs
     'api',  # Custom API app
     'users',  # Custom user app
+    'tags',  # Custom tags app
+    'ingredients',  # Custom ingredients app
+    'recipes',  # Custom recipes app
 ]
 
 MIDDLEWARE = [
@@ -120,6 +123,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -127,3 +133,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTH_USER_MODEL = 'users.FoodgramUser'  # Specify the custom user model
+
+REST_FRAMEWORK = {
+    #'DEFAULT_PERMISSION_CLASSES': [
+    #    'rest_framework.permissions.IsAuthenticated',
+    #],
+    #'DEFAULT_AUTHENTICATION_CLASSES': [
+    #    'rest_framework_simplejwt.authentication.JWTAuthentication',
+    #],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 5,
+}
