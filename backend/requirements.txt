@@ -1,0 +1,8 @@
+asgiref==3.9.1
+Django==4.2.23
+djangorestframework==3.16.0
+pillow==11.3.0
+pytz==2025.2
+sqlparse==0.5.3
+typing_extensions==4.14.1
+tzdata==2025.2
