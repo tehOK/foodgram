@@ -355,31 +355,3 @@ class LoginSerializer(serializers.Serializer):
             raise serializers.ValidationError("Введите email и пароль.")
         data["user"] = user
         return data
-
-
-# class ShoppingCartListSerializer(serializers.ModelSerializer):
-#     id = serializers.IntegerField(read_only=True)
-#     name = serializers.CharField(read_only=True)
-#     image = serializers.ImageField(read_only=True)
-#     cooking_time = serializers.IntegerField(read_only=True)
-
-#     class Meta:
-#         model = Recipe
-#         fields = ("id", "name", "image", "cooking_time")
-
-
-# class ChangePasswordSerializer(serializers.Serializer):
-
-#     new_password = serializers.CharField(write_only=True)
-#     current_password = serializers.CharField(write_only=True)
-
-#     def validate_current_password(self, value):
-#         user = self.context["request"].user
-#         if not user.check_password(value):
-#             raise serializers.ValidationError("Неверный текущий пароль.")
-#         return value
-
-#     def save(self):
-#         user = self.context["request"].user
-#         user.set_password(self.validated_data["new_password"])
-#         user.save()
