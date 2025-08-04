@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from users.models import FoodgramUser
 from users.constans import ADMIN_PAGE_SIZE
+from users.models import FoodgramUser
 
 
 @admin.register(FoodgramUser)

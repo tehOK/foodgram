@@ -1,29 +1,27 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-
-from rest_framework import viewsets, status, mixins, permissions
-from rest_framework.response import Response
-from rest_framework.decorators import action
-from rest_framework.filters import SearchFilter
-from rest_framework.authtoken.models import Token
 from django_filters.rest_framework import DjangoFilterBackend
 from djoser.views import TokenCreateView, UserViewSet
+from rest_framework import mixins, permissions, status, viewsets
+from rest_framework.authtoken.models import Token
+from rest_framework.decorators import action
+from rest_framework.filters import SearchFilter
+from rest_framework.response import Response
 
+from api.filters import RecipeFilter
+from api.permissions import IsAuthorOrReadOnly
 from api.serializers import (
     AvatarSerializer,
-    LoginSerializer,
-    SubscriptionsSerializer,
-    RecipeShortSerializer,
     IngredientSerializer,
-    TagSerializer,
+    LoginSerializer,
     RecipeSerializer,
+    RecipeShortSerializer,
+    SubscriptionsSerializer,
+    TagSerializer,
 )
-from tags.models import Tag
 from ingredients.models import Ingredient
 from recipes.models import Recipe
-from api.permissions import IsAuthorOrReadOnly
-from api.filters import RecipeFilter
-
+from tags.models import Tag
 
 User = get_user_model()
 

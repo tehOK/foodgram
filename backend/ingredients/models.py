@@ -1,6 +1,6 @@
 from django.db import models
 
-from ingredients.constants import NAME_LENGTH, MEASUREMENT_UNIT_LENGTH
+from ingredients.constants import MEASUREMENT_UNIT_LENGTH, NAME_LENGTH
 
 
 class Ingredient(models.Model):

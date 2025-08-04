@@ -1,13 +1,13 @@
 import base64
-from django.core.files.base import ContentFile
-from django.contrib.auth import authenticate, get_user_model
 
+from django.contrib.auth import authenticate, get_user_model
+from django.core.files.base import ContentFile
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from tags.models import Tag
 from ingredients.models import Ingredient
 from recipes.models import Recipe, RecipeIngredientAmount, RecipeTags
+from tags.models import Tag
 from users.models import Subscription
 
 User = get_user_model()

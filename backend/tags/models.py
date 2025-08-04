@@ -1,7 +1,7 @@
-from django.db import models
 from django.core.validators import RegexValidator
+from django.db import models
 
-from tags.constants import NAME_LENGTH, SLUG_REGEX, SLUG_LENGTH
+from tags.constants import NAME_LENGTH, SLUG_LENGTH, SLUG_REGEX
 
 slug_validator = RegexValidator(
     regex=SLUG_REGEX,

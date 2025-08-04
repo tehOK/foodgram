@@ -1,15 +1,15 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from api.views import (
-    IngredientViewSet,
-    TagViewSet,
-    RecipeViewSet,
-    FoodgramUserViewSet,
-    FoodgramTokenCreate,
-    SubscriptionViewSet,
-)
+from django.urls import include, path
 from djoser.views import TokenDestroyView
+from rest_framework.routers import DefaultRouter
 
+from api.views import (
+    FoodgramTokenCreate,
+    FoodgramUserViewSet,
+    IngredientViewSet,
+    RecipeViewSet,
+    SubscriptionViewSet,
+    TagViewSet,
+)
 
 router = DefaultRouter()
 router.register("tags", TagViewSet, basename="tag")

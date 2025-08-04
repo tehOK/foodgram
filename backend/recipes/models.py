@@ -1,6 +1,5 @@
-from django.db import models
 import shortuuid
-
+from django.db import models
 
 from ingredients.models import Ingredient
 from recipes.constants import DEFAULT_AMOUNT, NAME_LENGTH, SLUG_LENGTH
