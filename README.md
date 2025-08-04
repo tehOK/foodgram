@@ -1,3 +1,4 @@
+[![Main Foodgram Workflow](https://github.com/tehOK/foodgram/actions/workflows/main.yaml/badge.svg)](https://github.com/tehOK/foodgram/actions/workflows/main.yaml)
 # Foodgram
 
 **Foodgram** — это веб-приложение для публикации, поиска и управления рецептами. Пользователи могут делиться рецептами, добавлять их в избранное, формировать список покупок, подписываться на других авторов и получать короткие ссылки на рецепты.
