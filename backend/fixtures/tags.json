@@ -1,0 +1,58 @@
+[
+    {
+        "model": "tags.tag",
+        "pk": 1,
+        "fields": {
+            "name": "суп",
+            "slug": "soup"
+        }
+    },
+    {
+        "model": "tags.tag",
+        "pk": 2,
+        "fields": {
+            "name": "салат",
+            "slug": "salat"
+        }
+    },
+    {
+        "model": "tags.tag",
+        "pk": 3,
+        "fields": {
+            "name": "второе блюдо",
+            "slug": "2nd course"
+        }
+    },
+    {
+        "model": "tags.tag",
+        "pk": 4,
+        "fields": {
+            "name": "напиток",
+            "slug": "drink"
+        }
+    },
+    {
+        "model": "tags.tag",
+        "pk": 5,
+        "fields": {
+            "name": "завтрак",
+            "slug": "breakfast"
+        }
+    },
+    {
+        "model": "tags.tag",
+        "pk": 6,
+        "fields": {
+            "name": "обед",
+            "slug": "dinner"
+        }
+    },
+    {
+        "model": "tags.tag",
+        "pk": 7,
+        "fields": {
+            "name": "ужин",
+            "slug": "evening meal"
+        }
+    }
+]
