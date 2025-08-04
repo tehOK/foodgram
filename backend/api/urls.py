@@ -16,7 +16,6 @@ router.register("tags", TagViewSet, basename="tag")
 router.register("ingredients", IngredientViewSet, basename="ingredient")
 router.register("recipes", RecipeViewSet, basename="recipe")
 
-
 user_patterns = [
     path(
         "<int:id>/",
