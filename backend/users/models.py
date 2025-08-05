@@ -40,48 +40,10 @@ class FoodgramUser(AbstractUser):
         verbose_name = "Пользователь"
         verbose_name_plural = "Пользователи"
         default_related_name = "users"
+        ordering = ("username",)
 
-    def has_favorite(self, recipe):
-        """Проверить, есть ли рецепт в избранном."""
-        return self.is_favorited.filter(id=recipe.id).exists()
-
-    def has_in_cart(self, recipe):
-        """Проверить, есть ли рецепт в корзине покупок."""
-        return self.is_in_shopping_cart.filter(id=recipe.id).exists()
-
-    def subscribe(self, user):
-        """Подписаться на другого пользователя."""
-        Subscription.objects.get_or_create(subscriber=self, author=user)
-
-    def unsubscribe(self, user):
-        """Отписаться от другого пользователя."""
-        Subscription.objects.filter(subscriber=self, author=user).delete()
-
-    def is_subscribed(self, user):
-        """Проверить, подписан ли пользователь на другого."""
-        return Subscription.objects.filter(
-            subscriber=self, author=user
-        ).exists()
-
-    @property
-    def followers(self):
-        """Вернуть queryset пользователей, которые подписаны на пользователя"""
-        return User.objects.filter(subscriptions__author=self)
-
-    @property
-    def all_subscriptions(self):
-        """Вернуть queryset пользователей, на которых подписан пользователь."""
-        return self.subscriptions.all()
-
-    @property
-    def favorited(self):
-        """Получить избранные рецепты пользователя."""
-        return self.is_favorited.all()
-
-    @property
-    def shopping_cart(self):
-        """Получить рецепты в корзине покупок пользователя."""
-        return self.is_in_shopping_cart.all()
+    def __str__(self):
+        return self.username
 
 
 User = get_user_model()
@@ -105,6 +67,7 @@ class Subscription(models.Model):
         verbose_name = "Подписка"
         verbose_name_plural = "Подписки"
         default_related_name = "subscriptions"
+        ordering = ("subscriber",)
 
     def __str__(self):
         return f"{self.subscriber} подписан на {self.author}"

@@ -1,8 +1,9 @@
 import shortuuid
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 from ingredients.models import Ingredient
-from recipes.constants import DEFAULT_AMOUNT, NAME_LENGTH, SLUG_LENGTH
+from recipes import constants as rc
 from tags.models import Tag
 
 
@@ -24,15 +25,24 @@ class Recipe(models.Model):
         blank=True,
     )
     name = models.CharField(
-        max_length=NAME_LENGTH, verbose_name="Название рецепта"
+        max_length=rc.NAME_LENGTH, verbose_name="Название рецепта"
     )
     text = models.TextField(verbose_name="Описание рецепта")
-    cooking_time = models.PositiveIntegerField(
+    cooking_time = models.PositiveSmallIntegerField(
         help_text="Время приготовления (в минутах)",
         verbose_name="Время приготовления (минуты)",
+        validators=[
+            MinValueValidator(
+                rc.COOKING_TIME_MIN, "Время приготовления должно быть больше 0"
+            ),
+            MaxValueValidator(
+                rc.COOKING_TIME_MAX,
+                "Время приготовления не может превышать 32 000 минут",
+            ),
+        ],
     )
     slug = models.CharField(
-        max_length=SLUG_LENGTH,
+        max_length=rc.SLUG_LENGTH,
         help_text="Уникальный идентификатор рецепта",
         unique=True,
         blank=True,
@@ -45,13 +55,14 @@ class Recipe(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = shortuuid.ShortUUID().random(length=SLUG_LENGTH)
+            self.slug = shortuuid.ShortUUID().random(length=rc.SLUG_LENGTH)
         super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = "Рецепт"
         verbose_name_plural = "Рецепты"
         default_related_name = "recipes"
+        ordering = ("-pub_date",)
 
     def __str__(self):
         return self.name
@@ -64,15 +75,24 @@ class RecipeIngredientAmount(models.Model):
     ingredient = models.ForeignKey(
         Ingredient, on_delete=models.CASCADE, verbose_name="Ингредиент"
     )
-    amount = models.PositiveIntegerField(
+    amount = models.PositiveSmallIntegerField(
         help_text="Количество ингредиента",
-        default=DEFAULT_AMOUNT,
+        default=rc.DEFAULT_AMOUNT,
         verbose_name="Количество ингредиента",
+        validators=[
+            MinValueValidator(
+                rc.AMOUNT_MIN, "Количество должно быть больше 0"
+            ),
+            MaxValueValidator(
+                rc.AMOUNT_MAX, "Количество не может превышать 32 000"
+            ),
+        ],
     )
 
     class Meta:
         unique_together = ("recipe", "ingredient")
         default_related_name = "recipe_ingredients"
+        ordering = ("recipe", "ingredient")
 
     def __str__(self):
         return f"{self.ingredient.name}"
@@ -87,6 +107,7 @@ class RecipeTags(models.Model):
     class Meta:
         unique_together = ("recipe", "tag")
         default_related_name = "recipe_tags"
+        ordering = ("recipe", "tag")
 
     def __str__(self):
         return f"{self.tag.name}"

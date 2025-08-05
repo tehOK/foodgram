@@ -27,7 +27,6 @@ class RecipeFilter(django_filters.FilterSet):
         return queryset
 
     def filter_favorited(self, queryset, name, value):
-        print("filter_favorite called")
         user = self.request.user
         if value == "1" and user.is_authenticated:
             return queryset.filter(favorited=user)

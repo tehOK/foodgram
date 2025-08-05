@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from users import user_utils as us
 from users.constans import ADMIN_PAGE_SIZE
 from users.models import FoodgramUser
 
@@ -34,48 +35,56 @@ class FoodgramUserAdmin(admin.ModelAdmin):
     )
 
     @admin.display(description="Рецепты пользователя")
-    def get_user_recipes(self, obj):
+    def get_user_recipes(self, user):
         """Получить рецепты, созданные пользователем."""
         return (
-            ", ".join([recipe.name for recipe in obj.recipes.all()])
-            if obj.recipes.exists()
+            ", ".join([recipe.name for recipe in user.recipes.all()])
+            if user.recipes.exists()
             else "Нет рецептов"
         )
 
     @admin.display(description="Подписчики")
-    def get_followers(self, obj):
+    def get_followers(self, user):
         """Получить подписчиков пользователя."""
         return (
-            ", ".join([user.username for user in obj.followers])
-            if obj.followers
+            ", ".join(
+                [
+                    follower.subscriber.username
+                    for follower in us.followers(user)
+                ]
+            )
+            if us.followers(user)
             else "Нет подписчиков"
         )
 
     @admin.display(description="Подписки")
-    def get_subscriptions(self, obj):
+    def get_subscriptions(self, user):
         """Получить подписки пользователя."""
         return (
             ", ".join(
-                [user.author.username for user in obj.all_subscriptions]
+                [
+                    subscription.author.username
+                    for subscription in us.all_subscriptions(user)
+                ]
             )
-            if obj.all_subscriptions
+            if us.all_subscriptions(user)
             else "Нет подписок"
         )
 
     @admin.display(description="Корзина покупок")
-    def get_shopping_cart(self, obj):
+    def get_shopping_cart(self, user):
         """Получить рецепты в корзине покупок пользователя."""
         return (
-            ", ".join(
-                [recipe.name for recipe in obj.shopping_cart]
-            ) if obj.shopping_cart else "Нет рецептов в корзине"
+            ", ".join([recipe.name for recipe in us.shopping_cart(user)])
+            if us.shopping_cart(user)
+            else "Нет рецептов в корзине"
         )
 
     @admin.display(description="Избранные рецепты")
-    def get_favorited(self, obj):
+    def get_favorited(self, user):
         """Получить избранные рецепты пользователя."""
         return (
-            ", ".join([recipe.name for recipe in obj.favorited])
-            if obj.favorited
+            ", ".join([recipe.name for recipe in us.favorited(user)])
+            if us.favorited(user)
             else "Нет избранных рецептов"
         )
