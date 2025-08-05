@@ -22,5 +22,5 @@ def create_recipe_ingredients(recipe, ingredients_data):
 
 def redirect_short_link(request, code):
     recipe = get_object_or_404(Recipe, slug=code)
-    url = request.build_absolute_uri(f"/api/recipes/{recipe.id}/")
+    url = request.build_absolute_uri(f"/recipes/{recipe.id}/")
     return redirect(url)
