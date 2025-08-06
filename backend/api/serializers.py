@@ -5,7 +5,7 @@ from django.core.files.base import ContentFile
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from api import constants as  api_c
+from api import constants as api_c
 from api.recipe_utils import create_recipe_ingredients
 from ingredients.models import Ingredient
 from recipes.models import Recipe, RecipeIngredientAmount, RecipeTags
