@@ -9,6 +9,7 @@ from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 
 from api.filters import RecipeFilter
+from api.pagination import FoodgramRecipePagination
 from api.permissions import IsAuthorOrReadOnly
 from api.serializers import (
     AvatarSerializer,
@@ -139,6 +140,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     lookup_field = "id"
     filter_backends = (DjangoFilterBackend,)
     filterset_class = RecipeFilter
+    pagination_class = FoodgramRecipePagination
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
