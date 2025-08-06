@@ -5,6 +5,7 @@ from django.core.files.base import ContentFile
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
+from api import constants as  api_c
 from api.recipe_utils import create_recipe_ingredients
 from ingredients.models import Ingredient
 from recipes.models import Recipe, RecipeIngredientAmount, RecipeTags
@@ -100,8 +101,8 @@ class RecipeIngredientAmountSerializer(serializers.ModelSerializer):
         source="ingredient.measurement_unit", required=False
     )
     amount = serializers.IntegerField(
-        min_value=1,
-        max_value=32000,
+        min_value=api_c.AMOUNT_MIN,
+        max_value=api_c.AMOUNT_MAX,
         error_messages={
             "min_value": "Количество ингредиента должно быть больше нуля.",
             "max_value": "Количество ингредиента не может превышать 32 000.",
@@ -153,8 +154,8 @@ class RecipeSerializer(serializers.ModelSerializer):
         },
     )
     cooking_time = serializers.IntegerField(
-        min_value=1,
-        max_value=32000,
+        min_value=api_c.COOKING_TIME_MIN,
+        max_value=api_c.COOKING_TIME_MAX,
         error_messages={
             "min_value": "Время приготовления должно быть больше нуля.",
             "max_value": "Время приготовления не может превышать 32000 минут.",
